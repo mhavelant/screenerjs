@@ -1,0 +1,33 @@
+{
+  "compileOnSave": true,
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "target": "es6",
+    "lib": [
+      "es6"
+    ],
+    "noImplicitAny": false,
+    "noImplicitThis": true,
+    "strictNullChecks": true,
+    "strictFunctionTypes": true,
+    "forceConsistentCasingInFileNames": true,
+    "noFallthroughCasesInSwitch": true,
+    "noErrorTruncation": true,
+    "sourceMap": true,
+    "pretty": true,
+    "alwaysStrict": true,
+    "strict": true,
+    "declaration": true,
+    "declarationDir": "./types",
+    "listEmittedFiles": true,
+    "rootDir": "./src",
+    "outDir": "./dist"
+  },
+  "include": [
+    "./src"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
