@@ -1,11 +1,11 @@
 language: node_js
 
-dist: precise
+dist: trusty
 
 node_js:
 - "10"
 
-install: npm ci --ignore-scripts
+install: npm install --ignore-scripts
 cache:
   directories:
   - node_modules
@@ -18,12 +18,16 @@ matrix:
 
 stages:
 - precache # warm up cache for default Node.js version
+- build
 - lint # lint code and docs
 
 jobs:
   include:
   - stage: precache
     script: true
+    
+  - stage: build
+    script: 'tsc'
 
   - stage: lint
     script: 'npm run lint'
