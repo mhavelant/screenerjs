@@ -1,6 +1,7 @@
 # Custom
 .idea
 tmp
+dist
 
 # Github autogen.
 # Logs

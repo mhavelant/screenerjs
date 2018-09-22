@@ -2,7 +2,7 @@ version: "3"
 
 services:
   screenerjs:
-    image: hamtaai/screenerjs:0.1.0
+    image: hamtaai/screenerjs:0.1.1
     build:
       context: .
     volumes:

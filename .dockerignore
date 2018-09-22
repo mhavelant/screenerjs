@@ -1,12 +1,16 @@
-node_modules/
-.idea
-tmp
 .git
-.nvmrc
-.travis.yml
+.idea
 
-Dockerfile*
+node_modules/
+tmp/
+test/
+dist/
+
+Dockerfile
 .dockerignore
-.gitignore
-.eslintrc.yml
 docker-compose.yml
+
+.nvmrc
+.gitignore
+.travis.yml
+.eslintrc.yml
