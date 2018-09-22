@@ -1,0 +1,10 @@
+version: "3"
+
+services:
+  screenerjs:
+    image: hamtaai/screenerjs:0.1.0
+    build:
+      context: .
+    volumes:
+      # Only for inital dev + testing.
+      - ./:/home/node/app

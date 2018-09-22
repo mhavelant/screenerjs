@@ -1,0 +1,29 @@
+language: node_js
+
+dist: precise
+
+node_js:
+- "10"
+
+install: npm ci --ignore-scripts
+cache:
+  directories:
+  - node_modules
+
+env:
+  - NODE10=true
+
+matrix:
+  fast_finish: true
+
+stages:
+- precache # warm up cache for default Node.js version
+- lint # lint code and docs
+
+jobs:
+  include:
+  - stage: precache
+    script: true
+
+  - stage: lint
+    script: 'npm run lint'
