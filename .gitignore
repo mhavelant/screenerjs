@@ -2,6 +2,8 @@
 .idea
 tmp
 dist
+screener.json
+runtime
 
 # Github autogen.
 # Logs

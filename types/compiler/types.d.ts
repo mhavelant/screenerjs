@@ -1,8 +1,12 @@
-export interface ScreenerConfig {
+import * as Transport from "winston-transport";
+export interface VisualRegressionToolConfig {
     id: string;
-    baseDir?: string;
-    type?: string;
+    baseDir: string;
+    type: string;
     steps?: ScreenerSteps;
+}
+export interface VisualRegressionTool {
+    config: VisualRegressionToolConfig;
 }
 export interface ScreenerSteps {
     screenshots?: ScreenerScreenshots;
@@ -25,5 +29,5 @@ export interface ScreenerReports {
 export interface ScreenerLoggerOptions {
     level: string;
     format?: string;
-    transports?: [];
+    transports?: Transport[];
 }

@@ -6,6 +6,9 @@ tmp/
 test/
 dist/
 types/
+runtime/
+
+screener.json
 
 Dockerfile
 .dockerignore

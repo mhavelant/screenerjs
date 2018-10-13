@@ -4,8 +4,9 @@
 import * as program from "commander";
 import { readFileSync } from "fs";
 import { join, resolve } from "path";
-import { inspect } from "util";
-import { ScreenerConfig } from "../compiler/types";
+import { VisualRegressionToolConfig } from "../compiler/types";
+import Screener from "../core/screener";
+import ScreenerConfig from "../core/screener-config";
 import packageRoot from "../util/root-directory";
 
 const packageInfo = JSON.parse(readFileSync(join(packageRoot, "package.json"), {encoding: "utf8"}));
@@ -28,27 +29,36 @@ program.command("run")
         const configAbsolutePath: string = resolve(options.config);
         const step: string = options.step;
 
-        process.stdout.write("Command: Run");
-        process.stdout.write(`    Path to config: ${configAbsolutePath}`);
-        process.stdout.write(`    Step: ${step}`);
+        // @todo: Replace with winston logging.
+        process.stdout.write("Command: Run\n");
+        process.stdout.write(`    Path to config: ${configAbsolutePath}\n`);
+        process.stdout.write(`    Step: ${step}\n`);
 
+        let rawConfig = {};
         try {
-            const config: ScreenerConfig = JSON.parse(readFileSync(configAbsolutePath, {encoding: "utf8"}));
-            process.stdout.write(inspect(config));
-
-            // @todo: Process config.
-            // @todo: Run tests.
+            rawConfig = JSON.parse(readFileSync(configAbsolutePath, {encoding: "utf8"}));
         } catch (error) {
-            if ("SyntaxError" === error.name) {
-                process.stderr.write(`The config is not a valid json file.`);
-            } else if ("ENOENT" === error.code) {
-                process.stderr.write(`The config file could not be opened.`);
+            if ("ENOENT" === error.code) {
+                process.stderr.write(`The config file could not be opened.\n`);
+            } else if ("SyntaxError" === error.name) {
+                process.stderr.write(`The config is not a valid json file.\n`);
             } else {
-                process.stderr.write(error.message);
+                process.stderr.write(`${error.message}\n`);
             }
 
             process.exit(1);
         }
+
+        const config: VisualRegressionToolConfig = new ScreenerConfig(rawConfig);
+        const ScreenerJS = new Screener(config);
+
+        ScreenerJS.run()
+            .then((message) => {
+                process.stdout.write(`${message}\n`);
+            })
+            .catch((error) => {
+                process.stderr.write(`${error.message}\n`);
+            });
     });
 
 program.parse(process.argv);
