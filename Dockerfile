@@ -1,4 +1,5 @@
-FROM node:10.11.0-alpine as builder
+# Build.
+FROM node:10.12.0-alpine as builder
 
 LABEL maintainer="mhavelant"
 WORKDIR /home/node/app
@@ -7,12 +8,11 @@ ENV PATH="/home/node/app/node_modules/.bin:$PATH" \
 
 COPY . .
 
-RUN npm install
-RUN tsc
+RUN npm install && npm run compile
 
 
 # Dist.
-FROM node:10.11.0-alpine as dist
+FROM node:10.12.0-alpine as dist
 
 LABEL maintainer="mhavelant"
 ENTRYPOINT ["/sbin/tini", "--"]

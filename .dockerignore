@@ -5,6 +5,7 @@ node_modules/
 tmp/
 test/
 dist/
+types/
 
 Dockerfile
 .dockerignore
