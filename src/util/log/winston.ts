@@ -13,13 +13,11 @@ import { ScreenerLoggerOptions } from "../../compiler/types";
  * @param formatConfig
  */
 function configToFormat(formatConfig) {
-    switch (formatConfig) {
-        case "json":
-            return format.json();
-
-        default:
-            throw new Error("Unsupported WinstonJS format.");
+    if (formatConfig === "json") {
+        return format.json();
     }
+
+    throw new Error("Unsupported WinstonJS format.");
 }
 
 /**
@@ -48,6 +46,7 @@ function screenerToLogger(config) {
     options.transports = [];
 
     config.transports.forEach((transport) => {
+        // @ts-ignore
         // options.transports.push(configToTransport(transport));
     });
 
