@@ -2,11 +2,11 @@ defaultSeverity: error
 
 extends:
 - "tslint:recommended"
-
-jsRules: {}
+- "tslint-eslint-rules"
+- "tslint-consistent-codestyle"
+- "tslint-sonarts"
+- "tslint-config-security"
 
 rules: {
   "interface-name": [true, "never-prefix"]
 }
-
-rulesDirectory: []
