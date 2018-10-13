@@ -11,7 +11,7 @@
     "npm": "6.x"
   },
   "scripts": {
-    "start": "node dist/core/index.js",
+    "start": "node dist/cli/index.js",
     "lint": "tslint -p .",
     "compile": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",

@@ -18,7 +18,7 @@ LABEL maintainer="mhavelant"
 ENTRYPOINT ["/sbin/tini", "--"]
 CMD ["npm", "start"]
 WORKDIR /home/node/app
-ENV PATH="/home/node/app/node_modules/.bin:$PATH" \
+ENV PATH="/home/node/app/bin:/home/node/app/node_modules/.bin:$PATH" \
     NODE_ENV=production
 
 RUN apk add --no-cache tini
@@ -28,6 +28,9 @@ COPY --from=builder ["/home/node/app/package.json", "/home/node/app/package-lock
 
 RUN npm install --only=production --no-shrinkwrap && \
     npm cache -g clean --force && \
-    chown -R node:node /home/node
+    chown -R node:node /home/node && \
+    mkdir /home/node/app/bin && \
+    ln -s /home/node/app/dist/cli/index.js /home/node/app/bin/screenerjs && \
+    chmod +x /home/node/app/bin/screenerjs
 
 USER node
