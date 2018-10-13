@@ -12,7 +12,7 @@
   },
   "scripts": {
     "start": "node dist/core/index.js",
-    "lint": "eslint dist/",
+    "lint": "tslint -p .",
     "test": "echo \"Error: no test specified\" && exit 1",
     "docker-compose-build": "docker-compose build --force-rm",
     "docker-compose-start": "docker-compose run --rm screenerjs sh -c \"npm run start\""

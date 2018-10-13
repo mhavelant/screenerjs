@@ -14,3 +14,4 @@ docker-compose.yml
 .gitignore
 .travis.yml
 .eslintrc.yml
+tslint.yml
