@@ -3,9 +3,9 @@
   "compilerOptions": {
     "module": "commonjs",
     "moduleResolution": "node",
-    "target": "es6",
+    "target": "es2018",
     "lib": [
-      "es6"
+      "es2018"
     ],
     "noImplicitAny": false,
     "noImplicitThis": true,
