@@ -1,7 +1,7 @@
-'use strict';
+"use strict";
 
-import { ScreenerLoggerOptions } from "../../compiler/types"
-import { createLogger , format, transports, LoggerOptions } from "winston";
+import { createLogger , format, LoggerOptions, transports } from "winston";
+import { ScreenerLoggerOptions } from "../../compiler/types";
 
 //
 // If we're not in production then log to the `console` with the format:
@@ -14,11 +14,11 @@ import { createLogger , format, transports, LoggerOptions } from "winston";
  */
 function configToFormat(formatConfig) {
     switch (formatConfig) {
-        case 'json':
+        case "json":
             return format.json();
 
         default:
-            throw new Error('Unsupported WinstonJS format.');
+            throw new Error("Unsupported WinstonJS format.");
     }
 }
 
@@ -40,8 +40,8 @@ function configToTransport(transportConfig) {
  * @return {LoggerOptions}
  */
 function screenerToLogger(config) {
-    let options: LoggerOptions = {
-        level: config.level
+    const options: LoggerOptions = {
+        level: config.level,
     };
 
     options.format = configToFormat(config.format);
@@ -56,9 +56,9 @@ function screenerToLogger(config) {
 
 const create = function createWinston(config) {
     const logger = createLogger(screenerToLogger(config));
-    if (process.env.NODE_ENV !== 'production') {
+    if (process.env.NODE_ENV !== "production") {
         logger.add(new transports.Console({
-            format: format.simple()
+            format: format.simple(),
         }));
     }
 

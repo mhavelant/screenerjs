@@ -1,5 +1,5 @@
-'use strict';
+"use strict";
 
-const path = require('path');
+import { join } from "path";
 
-module.exports = path.join(__dirname, '..', '..');
+export default join(__dirname, "..", "..");

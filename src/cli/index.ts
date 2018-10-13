@@ -1,47 +1,49 @@
-'use strict';
+"use strict";
 
-import { ScreenerConfig } from "../compiler/types";
-import { readFileSync } from "fs";
-import { inspect } from "util";
-import { join, resolve } from "path";
 import * as program from "commander";
+import { readFileSync } from "fs";
+import { join, resolve } from "path";
+import { inspect } from "util";
+import { ScreenerConfig } from "../compiler/types";
+import packageRoot from "../util/root-directory";
 
-const packageRoot = require('../util/root-directory');
-const packageInfo = JSON.parse(readFileSync(join(packageRoot, 'package.json'), {encoding: 'utf8'}));
+const packageInfo = JSON.parse(readFileSync(join(packageRoot, "package.json"), {encoding: "utf8"}));
 
 program
-    .version(packageInfo.version, '-v, --version')
+    .version(packageInfo.version, "-v, --version")
     .description(packageInfo.description)
-    .usage('command [options]');
+    .usage("command [options]");
 
-program.command('run')
-    .description('Run the ScreenerJS test suite.')
-    .option('--step <step>', 'A single step to run. Defaults to all.', /^(all|screenshots|comparisons|compressions|reports)$/i, 'all')
-    .option('-c, --config <config>', 'Path to the config.', 'screener.json')
+program.command("run")
+    .description("Run the ScreenerJS test suite.")
+    .option(
+        "--step <step>",
+        "A single step to run. Defaults to all.",
+        /^(all|screenshots|comparisons|compressions|reports)$/i,
+        "all",
+    )
+    .option("-c, --config <config>", "Path to the config.", "screener.json")
     .action((options) => {
         const configAbsolutePath: string = resolve(options.config);
         const step: string = options.step;
 
-        console.log('Command: Run');
-        console.log(`    Path to config: ${configAbsolutePath}`);
-        console.log(`    Step: ${step}`);
+        process.stdout.write("Command: Run");
+        process.stdout.write(`    Path to config: ${configAbsolutePath}`);
+        process.stdout.write(`    Step: ${step}`);
 
         try {
-            let config: ScreenerConfig = JSON.parse(readFileSync(configAbsolutePath, {encoding: 'utf8'}));
-            console.log(inspect(config));
+            const config: ScreenerConfig = JSON.parse(readFileSync(configAbsolutePath, {encoding: "utf8"}));
+            process.stdout.write(inspect(config));
 
             // @todo: Process config.
             // @todo: Run tests.
-        }
-        catch (error) {
-            if ('SyntaxError' === error.name) {
-                console.error(`The config is not a valid json file.`);
-            }
-            else if ('ENOENT' === error.code) {
-                console.error(`The config file could not be opened.`);
-            }
-            else {
-                console.error(error.message);
+        } catch (error) {
+            if ("SyntaxError" === error.name) {
+                process.stderr.write(`The config is not a valid json file.`);
+            } else if ("ENOENT" === error.code) {
+                process.stderr.write(`The config file could not be opened.`);
+            } else {
+                process.stderr.write(error.message);
             }
 
             process.exit(1);
