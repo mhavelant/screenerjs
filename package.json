@@ -15,8 +15,8 @@
     "lint": "tslint -p .",
     "compile": "tsc",
     "test": "echo \"Error: no test specified\" && exit 1",
-    "docker-compose-build": "docker-compose build --force-rm",
-    "docker-compose-start": "docker-compose run --rm screenerjs sh -c \"npm run start\""
+    "docker:build": "docker-compose build --force-rm",
+    "docker:run": "docker-compose run --rm screenerjs sh -c \"npm run start\""
   },
   "config": {
     "ghooks": {
