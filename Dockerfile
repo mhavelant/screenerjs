@@ -13,7 +13,7 @@ COPY ["package.json", "package-lock.json", "./"]
 RUN npm install
 
 COPY . .
-RUN npm run compile
+RUN npm run lint && npm run compile
 
 # Dist.
 FROM node:$NODE_IMAGE_TAG as dist
@@ -33,9 +33,9 @@ RUN npm install --only=production --no-shrinkwrap && \
 
 COPY --from=builder ["/home/node/app/dist/", "/home/node/app/dist/"]
 
-RUN chown -R node:node /home/node && \
-    mkdir /home/node/app/bin && \
+RUN mkdir /home/node/app/bin && \
     ln -s /home/node/app/dist/cli/index.js /home/node/app/bin/screenerjs && \
+    chown -R node:node /home/node && \
     chmod +x /home/node/app/bin/screenerjs
 
 USER node

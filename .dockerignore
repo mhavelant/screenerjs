@@ -17,4 +17,4 @@ docker-compose.yml
 .nvmrc
 .gitignore
 .travis.yml
-tslint.yml
+.huskyrc.json
