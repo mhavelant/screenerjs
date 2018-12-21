@@ -1,6 +1,7 @@
 {
   "compileOnSave": true,
   "compilerOptions": {
+    "baseUrl": ".",
     "module": "commonjs",
     "moduleResolution": "node",
     "target": "es2018",
@@ -22,12 +23,16 @@
     "declarationDir": "./types",
     "listEmittedFiles": true,
     "rootDir": "./src",
-    "outDir": "./dist"
+    "outDir": "./dist",
+    "extendedDiagnostics": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true
   },
   "include": [
     "./src"
   ],
   "exclude": [
-    "node_modules"
+    "node_modules",
+    "dist"
   ]
 }
