@@ -2,9 +2,11 @@ version: "3"
 
 services:
   screenerjs:
-    image: hamtaai/screenerjs:0.1.3
+    image: hamtaai/screenerjs:0.1.4
     build:
       context: .
+      args:
+        - "NODE_IMAGE_TAG=10.14.2-alpine"
     volumes:
       # Only for inital dev + testing.
       - ./:/home/node/app
